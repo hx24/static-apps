@@ -66,5 +66,6 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           password: ${{ secrets.REMOTE_PASS }}
           port: 22
-          source: "src/*"
+          source: "src"
           target: ${{ secrets.REMOTE_TARGET }}
+          strip_components: 1 # src会作为target的子目录，使用strip_components配置移除src目录，直接将src下的文件作为target的子文件
