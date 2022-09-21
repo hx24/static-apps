@@ -60,7 +60,7 @@ jobs:
       #   run: npm run buil
 
       - name: copy file via ssh password
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@master # doc: https://github.com/marketplace/actions/scp-files
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
