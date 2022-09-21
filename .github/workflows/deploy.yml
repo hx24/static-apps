@@ -23,23 +23,48 @@ jobs:
   # 这个workflow包含一个名为"build"的job
   build:
     # The type of runner that the job will run on
-    # 这个job的运行环境，TODO 改为centos
+    # 这个job的运行环境，注意，这并不是你自己的服务器的环境，而是指定的当前这个job执行的脚本的运行环境，是github提供的虚拟机
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     # Steps是一系列要执行的任务，他们属于job的一部分
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # 检出你的分支，GitHub提供的预设脚本
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
       # 运行单行脚本
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # 每一步(step)可以有一个名字(name) 
+      # - name: Run a one-line script
+      #   run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
       # 运行多行脚本
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      # - name: Run a multi-line script
+      #   run: |
+      #     echo Add other actions to build,
+      #     echo test, and deploy your project.
+
+
+      # 安装node环境 这种通用的脚本在GitHub上都有现成的，可以直接去GitHub搜索
+      # - name: Setup Node.js environment
+      #   uses: actions/setup-node@v3.4.1
+      #   with:
+      #     node-version: "14.x" # 指定安装14版本node
+      
+      # - name: install deps
+      #   run: npm install
+
+      # - name: build app
+      #   run: npm run buil
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.REMOTE_PASS }}
+          port: 22
+          source: "src/"
+          target: ${{ secrets.REMOTE_TARGET }}
