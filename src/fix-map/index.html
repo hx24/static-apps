@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript"
+    src="https://webapi.amap.com/maps?v=2.0&key=468643028cdf25f27f44a1fd28998f3b">
+  </script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    #app {
+      width: 7000px;
+      height: 4000px;
+      padding: 30px;
+      font-size: 100px;
+      background-color: skyblue;
+      margin: 0;
+      color: #fff;
+    }
+
+    #map,
+    #map2 {
+      background: gray;
+      width: 3000px;
+      height: 3000px;
+      margin: 0 400px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div id="map"></div>
+  </div>
+
+  <script>
+
+
+var map = new AMap.Map('map');
+
+    var map = document.getElementById('map')
+    var app = document.getElementById('app')
+
+    app.style.transformOrigin = '0 0'
+    map.style.transformOrigin = '0 0'
+
+    let scale = 1
+    let preScale = 1 // 记录上次scale值，以便map做处理
+
+    const resize = () => {
+      const pageWidth = document.documentElement.clientWidth
+      const defaultWidth = 7000 // 设计宽度
+      preScale = scale
+      scale = pageWidth / 7000
+      app.style.transform = `scale(${scale}) translateX(-300px)`
+      resizeMap()
+    }
+
+    function resizeMap() {
+      const {
+        offsetWidth,
+        offsetHeight
+      } = map
+
+       // 每次响应式，根据上次缩放比例计算是地图的设计宽高 offsetWidth / preScale
+      const newWidth = (offsetWidth / preScale) * scale;
+      const newHeight = (offsetHeight / preScale) * scale;
+
+      map.style.transform = `scale(${1 / scale})` // 还原map到实际大小
+      map.style.width = newWidth + "px"
+      map.style.height = newHeight + "px"
+    }
+
+
+    window.addEventListener('resize', resize)
+    resize()
+  </script>
+</body>
+
+</html>
