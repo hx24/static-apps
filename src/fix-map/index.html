@@ -47,12 +47,9 @@
   </div>
 
   <script>
-
-
-    var map = new AMap.Map('map');
-
-    var map = document.getElementById('map')
-    var app = document.getElementById('app')
+    new AMap.Map('map');
+    const map = document.getElementById('map')
+    const app = document.getElementById('app')
 
     app.style.transformOrigin = '0 0'
     map.style.transformOrigin = '0 0'
@@ -65,7 +62,7 @@
       const defaultWidth = 7000 // 设计宽度
       preScale = scale
       scale = pageWidth / 7000
-      app.style.transform = `scale(${scale})`
+      app.style.transform = `scale(${scale})` // 使用scale对父级进行响应式
       resizeMap()
     }
 
@@ -79,11 +76,11 @@
       const newWidth = (offsetWidth / preScale) * scale;
       const newHeight = (offsetHeight / preScale) * scale;
 
-      map.style.transform = `scale(${1 / scale})` // 还原map到实际大小
+      map.style.transform = `scale(${1 / scale})` // 抵消父级的scale，还原map容器
+      // 改变map容器真实宽高来适应屏幕变化
       map.style.width = newWidth + "px"
       map.style.height = newHeight + "px"
     }
-
 
     window.addEventListener('resize', resize)
     resize()
