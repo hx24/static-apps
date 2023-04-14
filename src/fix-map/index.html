@@ -6,8 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script type="text/javascript"
-    src="https://webapi.amap.com/maps?v=2.0&key=468643028cdf25f27f44a1fd28998f3b">
+  <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=468643028cdf25f27f44a1fd28998f3b">
   </script>
   <style>
     * {
@@ -24,11 +23,16 @@
       background-color: skyblue;
       margin: 0;
       color: #fff;
+      border: 10px solid blue;
     }
 
-    #map,
-    #map2 {
-      background: gray;
+    .text {
+      color: #fff;
+      font-size: 200px;
+    }
+
+    #map {
+      border: 1px solid red;
       width: 3000px;
       height: 3000px;
       margin: 0 400px;
@@ -38,13 +42,14 @@
 
 <body>
   <div id="app">
+    <div class="text">调整页面窗口大小，文字通过父级scale被自动缩放，地图自动调整宽高自适应</div>
     <div id="map"></div>
   </div>
 
   <script>
 
 
-var map = new AMap.Map('map');
+    var map = new AMap.Map('map');
 
     var map = document.getElementById('map')
     var app = document.getElementById('app')
@@ -60,17 +65,17 @@ var map = new AMap.Map('map');
       const defaultWidth = 7000 // 设计宽度
       preScale = scale
       scale = pageWidth / 7000
-      app.style.transform = `scale(${scale}) translateX(-300px)`
+      app.style.transform = `scale(${scale})`
       resizeMap()
     }
 
-    function resizeMap() {
+    function resizeMap () {
       const {
         offsetWidth,
         offsetHeight
       } = map
 
-       // 每次响应式，根据上次缩放比例计算是地图的设计宽高 offsetWidth / preScale
+      // 每次响应式，根据上次缩放比例计算是地图的设计宽高 offsetWidth / preScale
       const newWidth = (offsetWidth / preScale) * scale;
       const newHeight = (offsetHeight / preScale) * scale;
 
