@@ -18,7 +18,7 @@ export default class DMap {
   }
 
   async getPoints() {
-    this.points = (await import('http://cdn.huangx.top/static-app/geo-multi-points.js')).points
+    this.points = (await import('//cdn.huangx.top/static-app/geo-multi-points.js')).points
   }
 
   async addMarkers(mode) {
