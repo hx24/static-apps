@@ -1,4 +1,4 @@
-import data from 'http://qiniu.huangx.top/static-app/gs-grid-data.js'
+import data from '//cdn.huangxin.fun/static-app/gs-grid-data.js'
 
 // 随机生成色值
 const randomColor = () => {
