@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript"
+    src="http://api.tianditu.gov.cn/api?v=4.0&tk=c702b24c4ff06429714c92e015096997"></script>
+  <style>
+    #map {
+      width: 100vw;
+      height: 100vh;
+    }
+    .action {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      background: #fff;
+      padding: 10px;
+      input {
+        width: 150px;
+      }
+    }
+    .search {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class="action">
+    <div>
+      天地图坐标(逗号分隔): <input type="text" class="location"><button class="search">搜索</button>
+    </div>
+    <div>点击网格显示网格名</div>
+  </div>
+  <script type="module" src="./index.js"></script>
+</body>
+</html>
