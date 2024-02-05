@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 引入echarts -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+  <div id="main" style="width: 100vw;height:100vh;"></div>
+  <script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    const data = [
+      {
+        name: '楼宇',
+        children: [
+          {
+            name: '基础信息',
+            children: [
+              {
+                name: '楼宇名称',
+              },
+              {
+                name: '所属街道',
+              },
+              {
+                name: '注册地址',
+              },
+              {
+                name: '地址详情',
+              },
+              {
+                name: '简介',
+              },
+              {
+                name: '联系人',
+              },
+              {
+                name: '联系方式',
+              },
+              {
+                name: '楼宇图片',
+              }
+            ]
+          },
+          {
+            name: '建筑信息',
+            children: [
+              {
+                name: '建筑面积',
+              },
+              {
+                name: '竣工年月',
+              },
+              {
+                name: '地上层数',
+              },
+              {
+                name: '开工年月',
+              },
+              {
+                name: '楼宇总高度',
+              },
+              {
+                name: '建筑面积',
+              },
+              {
+                name: '地上高度',
+              },
+              {
+                name: '地上车位数',
+              },
+              {
+                name: '楼层空置面积',
+              }
+            ]
+          },
+          {
+            name: '入驻信息',
+            children: [
+              {
+                name: '入驻企业数',
+              },
+              {
+                name: '重点企业数',
+              },
+              {
+                name: '当月迁入企业数',
+              },
+              {
+                name: '当月迁出企业数',
+              },
+              {
+                name: '入驻率',
+              }
+            ]
+          },
+          {
+            name: '租售信息',
+            children: [
+              {
+                name: '楼宇租金',
+              },
+              {
+                name: '车位租金',
+              },
+              {
+                name: '租金均价',
+              },
+              {
+                name: '出售价格',
+              },
+              {
+                name: '出租价格区间',
+              }
+            ]
+          },
+          {
+            name: '招商信息',
+            children: [
+              {
+                name: '可出售面积',
+              },
+              {
+                name: '招商联络员',
+              },
+              {
+                name: '可招商面积',
+              },
+              {
+                name: '总商务面积',
+              },
+              {
+                name: '可招商层数',
+              }
+            ]
+          },
+          {
+            name: '物业信息',
+            children: [
+              {
+                name: '物业管理费',
+              },
+              {
+                name: '物业公司',
+              },
+              {
+                name: '物管联系人',
+              },
+              {
+                name: '物业管理等级',
+              }
+            ]
+          },
+          {
+            name: '税务信息',
+            children: [
+              {
+                name: '本年度累计税收（万元）',
+              },
+              {
+                name: '出税率',
+              },
+              {
+                name: '税收增幅',
+              },
+              {
+                name: '属地纳税率',
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: '企业'
+      }
+    ]
+
+    const nodes = [];
+    const links = [];
+
+    function dfs (data, parent, category) {
+      if (data instanceof Array) {
+        data.forEach(item => {
+          if (item.children) {
+            dfs(item.children, item, category + 1);
+          }
+          nodes.push({
+            name: item.name,
+            category
+          });
+          if (parent) {
+            links.push({
+              source: item.name,
+              target: parent.name,
+            });
+          }
+        });
+      }
+    }
+
+    dfs(data, null, 0);
+
+    const colors = ['#5470c6', '#91cb75',  '#73c0de']
+
+    nodes.forEach(node => {
+      node.symbolSize = 80 - 10 * node.category;
+      node.itemStyle = {
+        color: colors[node.category]
+      }
+    });
+
+    links.forEach(link => {
+      link.label = {
+        align: 'center',
+        fontSize: 12
+      };
+
+      link.name = '' // 线上不显示字
+      link.lineStyle = {
+        color: colors[0] // 线的颜色
+      }
+    });
+
+    // 
+    // let categories = [ // 按顺序匹配节点的category
+    //   {
+    //     name: '一级',
+    //     itemStyle: {
+    //       color: colors[0]
+    //     }
+    //   },
+    //   {
+    //     name: '二级',
+    //     itemStyle: {
+    //       color: colors[1]
+    //     }
+    //   }
+    // ]
+
+    const categories = Array.from({length: 3}).map((_, index) => {
+      return {
+        name: index + '级',
+        itemStyle: {
+          color: colors[index]
+        }
+      }
+    })
+    
+
+    option = {
+      title: {
+        text: '知识图谱',
+      },
+      legend: [{
+        // selectedMode: 'single',
+        data: categories.map(x => x.name),
+        // icon: 'circle'
+      }],
+      series: [{
+        type: 'graph',
+        layout: 'force',
+        symbolSize: 58,
+        draggable: true,
+        roam: true,
+        focusNodeAdjacency: true,
+        categories: categories,
+        edgeSymbol: ['', 'arrow'],
+        // edgeSymbolSize: [80, 10],
+        edgeLabel: {
+          normal: {
+            show: true,
+            textStyle: {
+              fontSize: 20
+            },
+            formatter (x) {
+              return x.data.name;
+            }
+          }
+        },
+        label: {
+          show: true
+        },
+        force: {
+          repulsion: 2000,
+          edgeLength: 120
+        },
+        data: nodes,
+        links: links
+      }]
+    }
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+  </script>
+</body>
+
+</html>
