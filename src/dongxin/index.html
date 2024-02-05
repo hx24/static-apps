@@ -17,167 +17,210 @@
 
     const data = [
       {
+        name: '总览分析',
+        children: [
+          {
+            name: '总体情况',
+            children: [
+              { name: '楼宇总量\n总体入驻率\n实际入驻企业\n重点企业总量\n...' }
+              // { name: '楼宇总量' },
+              // { name: '总体入驻率' },
+              // { name: '实际入驻企业' },
+              // { name: '重点企业总量' },
+            ],
+          },
+          {
+            name: '核心经济指标',
+            children: [{ name: '近三年税收情况\n纳税TOP10\n...' }]
+          },
+          {
+            name: '建设利用',
+            children: [{ name: '总用地面积\n已投入楼宇\n...' }]
+          },
+          {
+            name: '企业类别',
+            children: [{ name: '上市企业\n重点孵化\n...' }]
+          },
+          {
+            name: '行业分布',
+            children: [{ name: '信息技术\n批发零售\n...' }]
+          },
+          {
+            name: '企业动态总览',
+            children: [{ name: '当月迁入迁出\n风险监控\n...' }]
+          },
+          {
+            name: '科技创新投入',
+            children: [{ name: '研发资金投入\n市场推广投入\n...' }]
+          },
+        ]
+      },
+      {
         name: '楼宇',
         children: [
           {
             name: '基础信息',
             children: [
-              {
-                name: '楼宇名称',
-              },
-              {
-                name: '所属街道',
-              },
-              {
-                name: '注册地址',
-              },
-              {
-                name: '地址详情',
-              },
-              {
-                name: '简介',
-              },
-              {
-                name: '联系人',
-              },
-              {
-                name: '联系方式',
-              },
-              {
-                name: '楼宇图片',
-              }
+              { name: '楼宇名称\n楼宇地址\n...' }
+              // { name: '楼宇名称' },
+              // { name: '楼宇地址' },
+              // { name: '楼宇注册街道' },
+              // { name: '地址详情' },
+              // { name: '简介' },
+              // { name: '联系人' },
+              // { name: '联系方式' },
+              // { name: '楼宇图片' }
             ]
           },
           {
             name: '建筑信息',
             children: [
-              {
-                name: '建筑面积',
-              },
-              {
-                name: '竣工年月',
-              },
-              {
-                name: '地上层数',
-              },
-              {
-                name: '开工年月',
-              },
-              {
-                name: '楼宇总高度',
-              },
-              {
-                name: '建筑面积',
-              },
-              {
-                name: '地上高度',
-              },
-              {
-                name: '地上车位数',
-              },
-              {
-                name: '楼层空置面积',
-              }
+              { name: '建筑面积\n楼层空置面积\n...' }
+              // { name: '建筑面积' },
+              // { name: '楼层空置面积' },
+              // { name: '竣工年月' },
+              // { name: '地上层数' },
+              // { name: '开工年月' },
+              // { name: '楼宇总高度' },
+              // { name: '地上高度' },
+              // { name: '地上车位数' },
             ]
           },
           {
             name: '入驻信息',
             children: [
-              {
-                name: '入驻企业数',
-              },
-              {
-                name: '重点企业数',
-              },
-              {
-                name: '当月迁入企业数',
-              },
-              {
-                name: '当月迁出企业数',
-              },
-              {
-                name: '入驻率',
-              }
+              { name: '入驻企业数\n入驻企业\n入驻率\n...' }
+              // { name: '入驻企业数' },
+              // { name: '入驻企业' },
+              // { name: '入驻率' },
+              // {name: '重点企业数'},
+              // {name: '当月迁入企业数'},
+              // { name: '当月迁出企业数'},
             ]
           },
           {
             name: '租售信息',
             children: [
-              {
-                name: '楼宇租金',
-              },
-              {
-                name: '车位租金',
-              },
-              {
-                name: '租金均价',
-              },
-              {
-                name: '出售价格',
-              },
-              {
-                name: '出租价格区间',
-              }
+              { name: '楼宇租金\n出售价格\n...' }
+              // { name: '楼宇租金' },
+              // { name: '出售价格' },
+              // {name: '车位租金'},
+              // {name: '租金均价' },
+              // {name: '出租价格区间'}
             ]
           },
           {
             name: '招商信息',
             children: [
-              {
-                name: '可出售面积',
-              },
-              {
-                name: '招商联络员',
-              },
-              {
-                name: '可招商面积',
-              },
-              {
-                name: '总商务面积',
-              },
-              {
-                name: '可招商层数',
-              }
+              { name: '可出售面积\n可招商层数\n...' }
+              // { name: '可出售面积' },
+              // { name: '可招商层数' },
+              // {name: '招商联络员'},
+              // {name: '可招商面积'},
+              // {name: '总商务面积'},
             ]
           },
           {
             name: '物业信息',
             children: [
-              {
-                name: '物业管理费',
-              },
-              {
-                name: '物业公司',
-              },
-              {
-                name: '物管联系人',
-              },
-              {
-                name: '物业管理等级',
-              }
+              { name: '物业公司\n物管联系人\n...' }
+              // { name: '物业公司' },
+              // { name: '物管联系人' },
+              // {name: '物业管理费'},
+              // {name: '物业管理等级' }
             ]
           },
           {
             name: '税务信息',
             children: [
-              {
-                name: '本年度累计税收（万元）',
-              },
-              {
-                name: '出税率',
-              },
-              {
-                name: '税收增幅',
-              },
-              {
-                name: '属地纳税率',
-              }
+              { name: '本年度累计税收\n出税率\n...' }
+              // { name: '本年度累计税收' },
+              // { name: '出税率' },
+              // {name: '税收增幅'},
+              // {name: '属地纳税率'}
             ]
           }
         ]
       },
       {
-        name: '企业'
+        name: '企业',
+        children: [
+          {
+            name: '工商信息',
+            children: [
+              { name: '企业名称\n统一社会信用代码\n...' }
+              // { name: '企业名称' },
+              // { name: '统一社会信用代码' },
+              // { name: '法定代表人' },
+              // { name: '登记状态' },
+              // { name: '注册地址' },
+              // { name: '负责人' },
+            ]
+          },
+          {
+            name: '股权信息',
+            children: [
+              { name: '股东\n对外投资\n...' }
+              // { name: '股东' },
+              // { name: '对外投资' },
+              // { name: '控股企业' },
+            ]
+          },
+          {
+            name: '场所信息',
+            children: [
+              { name: '注册楼宇\n租赁楼层\n...' }
+              // { name: '实际办公地址' },
+              // { name: '经营场所面积' },
+              // { name: '租赁楼层' },
+              // { name: '注册楼宇' },
+              // { name: '纳税楼宇' },
+            ]
+          },
+          {
+            name: '主要经济指标',
+            children: [
+              { name: '资产总计\n负债合计\n增速\n...' }
+              // { name: '资产总计' },
+              // { name: '股东资产原值' },
+              // { name: '负债合计' },
+              // { name: '增速' },
+            ]
+          },
+          {
+            name: '财政税收信息',
+            children: [
+              { name: '税收收入\n营业税\n...' }
+              // { name: '税收收入' },
+              // { name: '营业税' },
+            ]
+          },
+          {
+            name: '人社信息',
+            children: [
+              { name: '在职人员\n参保人数\n...' }
+              // { name: '在职人员' },
+              // { name: '参保人数' },
+            ]
+          },
+          {
+            name: '迁入迁出信息',
+            children: [
+              { name: '税收关系\n搬迁/注销\n...' }
+              // { name: '税收关系' },
+              // { name: '搬迁/注销' },
+            ]
+          },
+          {
+            name: '企业标签',
+            children: [
+              { name: '重点孵化\n上市企业\n...' }
+              // { name: '重点孵化' },
+              // { name: '上市企业' },
+            ]
+          },
+
+        ]
       }
     ]
 
@@ -204,12 +247,28 @@
       }
     }
 
+    const extraLinks = [
+      {
+        source: '场所信息',
+        target: '入驻信息'
+      },
+      {
+        source: '楼宇',
+        target: '总览分析'
+      },
+      {
+        source: '企业',
+        target: '总览分析'
+      },
+    ]
+    extraLinks.forEach(link => link.name = '')
+
     dfs(data, null, 0);
 
-    const colors = ['#5470c6', '#91cb75',  '#73c0de']
+    const colors = ['#5470c6', '#91cb75', '#73c0de']
 
     nodes.forEach(node => {
-      node.symbolSize = 80 - 10 * node.category;
+      node.symbolSize = 120 - 20 * node.category;
       node.itemStyle = {
         color: colors[node.category]
       }
@@ -227,23 +286,9 @@
       }
     });
 
-    // 
-    // let categories = [ // 按顺序匹配节点的category
-    //   {
-    //     name: '一级',
-    //     itemStyle: {
-    //       color: colors[0]
-    //     }
-    //   },
-    //   {
-    //     name: '二级',
-    //     itemStyle: {
-    //       color: colors[1]
-    //     }
-    //   }
-    // ]
+    links.push(...extraLinks)
 
-    const categories = Array.from({length: 3}).map((_, index) => {
+    const categories = Array.from({ length: 3 }).map((_, index) => {
       return {
         name: index + '级',
         itemStyle: {
@@ -251,7 +296,7 @@
         }
       }
     })
-    
+
 
     option = {
       title: {
