@@ -15,9 +15,14 @@
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
 
+    // 一些关系图比较好看的色值
+    const graph_colors = ['#5470c6', '#91cb75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc', '#f9db72']
+
     const data = [
       {
         name: '总览分析',
+        color: graph_colors[0],
+        childColor: '#73c0de',
         children: [
           {
             name: '总体情况',
@@ -57,6 +62,8 @@
       },
       {
         name: '楼宇',
+        color: '#fac858',
+        childColor: '#91cc74',
         children: [
           {
             name: '基础信息',
@@ -131,7 +138,7 @@
             ]
           },
           {
-            name: '税务信息',
+            name: '楼宇税务',
             children: [
               { name: '本年度累计税收\n出税率\n...' }
               // { name: '本年度累计税收' },
@@ -144,6 +151,8 @@
       },
       {
         name: '企业',
+        color: '#9a60b4',
+        childColor: '#ea7ccc',
         children: [
           {
             name: '工商信息',
@@ -188,7 +197,7 @@
             ]
           },
           {
-            name: '财政税收信息',
+            name: '企业税务',
             children: [
               { name: '税收收入\n营业税\n...' }
               // { name: '税收收入' },
@@ -227,21 +236,34 @@
     const nodes = [];
     const links = [];
 
-    function dfs (data, parent, category) {
+    function dfs (data, parent, category, childColor) {
       if (data instanceof Array) {
         data.forEach(item => {
           if (item.children) {
-            dfs(item.children, item, category + 1);
+            dfs(item.children, item, category + 1, item.childColor || childColor);
           }
-          nodes.push({
+          const color = item.color || childColor;
+          const node = {
             name: item.name,
-            category
-          });
+            category,
+          }
+          if (color) {
+            node.itemStyle = {
+              color
+            }
+          }
+          nodes.push(node);
           if (parent) {
-            links.push({
+            const link = {
               source: item.name,
               target: parent.name,
-            });
+            }
+            if (color) {
+              link.lineStyle = {
+                color
+              }
+            }
+            links.push(link);
           }
         });
       }
@@ -253,6 +275,10 @@
         target: '入驻信息'
       },
       {
+        source: '场所信息',
+        target: '租售信息'
+      },
+      {
         source: '楼宇',
         target: '总览分析'
       },
@@ -260,76 +286,64 @@
         source: '企业',
         target: '总览分析'
       },
+      {
+        source: '企业税务',
+        target: '楼宇税务'
+      }
     ]
-    extraLinks.forEach(link => link.name = '')
 
     dfs(data, null, 0);
 
-    const colors = ['#5470c6', '#91cb75', '#73c0de']
+    // const colors = ['#5470c6', '#91cb75', '#73c0de']
 
     nodes.forEach(node => {
-      node.symbolSize = 120 - 20 * node.category;
-      node.itemStyle = {
-        color: colors[node.category]
+      node.symbolSize = 120 - 50 * node.category;
+      if (!node?.itemStyle) {
+        node.itemStyle = {
+          color: '#fc8352'
+        }
       }
     });
+
+    links.push(...extraLinks)
 
     links.forEach(link => {
       link.label = {
         align: 'center',
         fontSize: 12
       };
-
-      link.name = '' // 线上不显示字
-      link.lineStyle = {
-        color: colors[0] // 线的颜色
+      if (!link?.lineStyle) {
+        link.lineStyle = {
+          color: '#000' // 连接线颜色
+        }
       }
     });
 
-    links.push(...extraLinks)
-
-    const categories = Array.from({ length: 3 }).map((_, index) => {
-      return {
-        name: index + '级',
-        itemStyle: {
-          color: colors[index]
-        }
-      }
-    })
-
 
     option = {
+      // backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
+      //   offset: 0,
+      //   color: '#f7f8fa'
+      // }, {
+      //   offset: 1,
+      //   color: '#cdd0d5'
+      // }]),
       title: {
         text: '知识图谱',
       },
-      legend: [{
-        // selectedMode: 'single',
-        data: categories.map(x => x.name),
-        // icon: 'circle'
-      }],
       series: [{
         type: 'graph',
-        layout: 'force',
+        zoom: 0.45,
+        layout: 'force', // force-引力布局 'none' 不采用任何布局，使用节点中提供的 x， y 作为节点的位置。
         symbolSize: 58,
         draggable: true,
         roam: true,
         focusNodeAdjacency: true,
-        categories: categories,
         edgeSymbol: ['', 'arrow'],
-        // edgeSymbolSize: [80, 10],
-        edgeLabel: {
-          normal: {
-            show: true,
-            textStyle: {
-              fontSize: 20
-            },
-            formatter (x) {
-              return x.data.name;
-            }
-          }
-        },
+        edgeSymbolSize: 5,
         label: {
-          show: true
+          show: true,
+          // position: 'top'
         },
         force: {
           repulsion: 2000,
